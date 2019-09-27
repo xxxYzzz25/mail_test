@@ -1,0 +1,10 @@
+@import '~bootstrap/scss/_functions.scss';
+@import './helpers/variables';
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import './dashboard.scss';
+html,
+body,
+#app {
+  height: 100%;
+}
