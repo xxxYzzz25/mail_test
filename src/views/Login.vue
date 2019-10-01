@@ -30,7 +30,7 @@
       />
       <b-alert show variant="danger" v-show="errors.has('psd')">{{ errors.first('psd') }}</b-alert>
       <b-button
-        class="btn btn-lg btn-primary btn-block"
+        class="btn btn-lg btn-indigo btn-block"
         size="lg"
         :disabled="disabled"
         variant="primary"
@@ -43,16 +43,6 @@
 </template>
 
 <script>
-// this.$validator.validateAll().then(function(result) {
-//   if (result) {
-//     //成功操作
-//     alert(111)
-//     this.disabled = false;
-
-//   } else {
-//     // 失敗操作
-//   }
-// });
 const axios = require("axios");
 export default {
   data() {
@@ -81,34 +71,40 @@ export default {
           data: JSON.stringify(submitData)
         }).then(function(res) {
           // console.log(res.data);
-          // if (res.stsatus == "401") {
-          //   axios({
-          //     method: "post",
-          //     headers: { "Content-Type": "application/json" },
-          //     url: "https://earth.comismart.com/auth/rest/token/refresh",
-          //     data: JSON.stringify()
-          //   });
-          // }
-          localStorage.setItem("token", JSON.stringify(res.data));
-          var varToken = res.data.accessToken;
-          var tenant = res.data.tenant;
-          axios({
-            method: "get",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + varToken,
-              tenant: tenant
-            },
-            url: "https://earth.comismart.com/api/rest/device/1540281688669"
-          }).then(function(res) {
-            // console.log(res.data);
-            localStorage.setItem("event", JSON.stringify(res.data));
-            vm.$router.push("/Dashboard");
-          });
+          vm.goNext(res);
+          if (res.stsatus == "401") {
+            axios({
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+              url: "https://earth.comismart.com/auth/rest/token/refresh",
+              data: JSON.stringify(submitData)
+            }).then(function(res) {
+              vm.goNext(res);
+            });
+          }
         });
       } else {
         vm.error = true;
       }
+    },
+    goNext(res) {
+      const vm = this;
+      localStorage.setItem("token", JSON.stringify(res.data));
+      var varToken = res.data.accessToken;
+      var tenant = res.data.tenant;
+      axios({
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + varToken,
+          tenant: "a52orx6xv84o1da8c7926ie2g"
+        },
+        url: "https://earth.comismart.com/api/rest/device/1540281688669"
+      }).then(function(res) {
+        // console.log(res.data);
+        localStorage.setItem("event", JSON.stringify(res.data));
+        vm.$router.push("/Dashboard");
+      });
     }
   }
 };
