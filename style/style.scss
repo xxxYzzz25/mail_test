@@ -1,0 +1,51 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  background: rgb(0, 51, 77);
+  position: relative;
+  padding: 5% 0;
+  .contentBox {
+    text-align: center;
+    color: #ccc;
+    h3{
+      font-size: 32px;
+    }
+    .contacts {
+      border: 2px solid #ddd;
+      width: 80%;
+      height: 60vh;
+      margin: 0 auto;
+      margin-top: 3%;
+      padding: 1%;
+      h4{
+        font-size: 28px;
+      }
+      .contactBox{
+        display: flex;
+        align-items: center;
+        // justify-content: space-around;
+        flex-wrap: wrap;
+        .item{
+          width: 20%;
+          border: 1px solid #ddd;
+          padding: 3% 1%;
+        }
+      }
+    }
+  }
+  .btnBox {
+    position: absolute;
+    bottom: 8%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}

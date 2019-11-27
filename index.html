@@ -5,192 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>mail</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
-    <div class="item">
-      <input type="text" id="addList" placeholder="Text list name" />
-      <button type="submit" id="addListBtn">create list</button>
-    </div>
-    <div class="item">
-      <input type="email" id="addEmail" placeholder="Text your email" />
-      <button type="submit" id="addEmailBtn">add email</button>
-    </div>
-    <div class="item">
-      <button type="submit" id="campaignBtn">send campaign</button>
-    </div>
-    <button id="deleteBtn">deleteBtn</button>
-
-    <script>
-      let addList = document.querySelector("#addList"),
-        addListBtn = document.querySelector("#addListBtn"),
-        addEmail = document.querySelector("#addEmail"),
-        addEmailBtn = document.querySelector("#addEmailBtn"),
-        campaignBtn = document.querySelector("#campaignBtn"),
-        deleteBtn = document.querySelector("#deleteBtn");
-
-      let config = {
-          dc: "us4",
-          apiKey: "6f5d1ecc7e4f7d8191cbc4ecbf5e15ef-us4",
-          listId: ""
-        },
-        cors = "https://cors-anywhere.herokuapp.com/";
-
-      (function getListsId() {
-        axios({
-          method: "get",
-          headers: {
-            Authorization: `Bearer ${config.apiKey}`
-          },
-          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists`
-        })
-          .then(function(res) {
-            console.log(res);
-            config.listId = res.data.lists[0].id;
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      })();
-
-      function deleteList(listId) {
-        axios({
-          method: "delete",
-          headers: {
-            Authorization: `Bearer ${config.apiKey}`
-          },
-          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists/${config.listId}`
-        })
-          .then(function(res) {
-            console.log(res);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
-
-      function createList() {
-        if (addList.value != "") {
-          let listData = {
-            name: addList.value,
-            contact: {
-              company: "123",
-              address1: "123",
-              address2: "123",
-              city: "123",
-              state: "123",
-              zip: "123",
-              country: "123",
-              phone: "123"
-            },
-            permission_reminder: "123",
-            campaign_defaults: {
-              from_name: "234",
-              from_email: "234@gmail.com",
-              subject: "234",
-              language: "234"
-            },
-            email_type_option: true
-          };
-          axios({
-            method: "post",
-            headers: {
-              Authorization: `Bearer ${config.apiKey}`
-            },
-            url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists`,
-            data: JSON.stringify(listData)
-          })
-            .then(function(res) {
-              config.listId = res.data.id;
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-        }
-      }
-
-      function addMember() {
-        if (addEmail.value != "") {
-          let memberData = {
-            email_address: addEmail.value,
-            status: "subscribed"
-          };
-          axios({
-            method: "post",
-            headers: {
-              Authorization: `Bearer ${config.apiKey}`
-            },
-            url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists/${config.listId}/members`,
-            data: JSON.stringify(memberData)
-          })
-            .then(function(res) {
-              console.log(res);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-        }
-      }
-
-      function createCampaign() {
-        let campaignData = {
-          type: "regular",
-          recipients: {
-            list_id: config.listId
-          },
-          settings: {
-            subject_line: "Hello",
-            from_name: "aaa",
-            reply_to: "aaaaa@gmail.com",
-            auto_footer: true,
-            template_id: 1
-          }
-        };
-        axios({
-          method: "post",
-          headers: {
-            Authorization: `Bearer ${config.apiKey}`
-          },
-          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/campaigns`,
-          data: JSON.stringify(campaignData)
-        })
-          .then(function(res) {
-            console.log(res.data);
-            sendCampaign(res.data.id);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
-
-      function sendCampaign(campaignsID) {
-        axios({
-          method: "post",
-          headers: {
-            Authorization: `Bearer ${config.apiKey}`
-          },
-          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/campaigns/${campaignsID}/actions/send`
-        })
-          .then(function(res) {
-            console.log(res);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
-
-      deleteBtn.addEventListener("click", () => {
-        deleteList();
-      });
-      addListBtn.addEventListener("click", () => {
-        createList();
-      });
-      addEmailBtn.addEventListener("click", () => {
-        addMember();
-      });
-      campaignBtn.addEventListener("click", () => {
-        createCampaign();
-      });
-    </script>
+    <main>
+      <div class="contentBox">
+        <h3>name: <span id="myListName"></span></h3>
+        <h3>id: <span id="myListId"></span></h3>
+        <div class="contacts">
+          <h4>CONTACTS</h4>
+          <div class="contactBox"></div>
+        </div>
+      </div>
+      <div class="btnBox">
+        <div class="item">
+          <input type="text" id="addList" placeholder="Text list name" />
+          <button type="submit" id="addListBtn">create list</button>
+        </div>
+        <div class="item">
+          <input type="email" id="addEmail" placeholder="Text your email" />
+          <button type="submit" id="addEmailBtn">add email</button>
+        </div>
+        <div class="item">
+          <button type="submit" id="campaignBtn">send campaign</button>
+        </div>
+        <button id="deleteBtn">delete</button>
+      </div>
+    </main>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./index.js"></script>
   </body>
 </html>
