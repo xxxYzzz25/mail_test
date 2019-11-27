@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>mail</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="item">
+      <input type="text" id="addList" placeholder="Text list name" />
+      <button type="submit" id="addListBtn">create list</button>
+    </div>
+    <div class="item">
+      <input type="email" id="addEmail" placeholder="Text your email" />
+      <button type="submit" id="addEmailBtn">add email</button>
+    </div>
+    <div class="item">
+      <button type="submit" id="campaignBtn">send campaign</button>
+    </div>
+
+    <script>
+      let addList = document.querySelector('#addList'),
+        addListBtn = document.querySelector('#addListBtn'),
+        addEmail = document.querySelector('#addEmail'),
+        addEmailBtn = document.querySelector('#addEmailBtn'),
+        campaignBtn = document.querySelector('#campaignBtn');
+
+      const config = {
+          dc: 'us4',
+          apiKey: 'b0076750f0b5f61898b80d60f7ef0054-us4',
+          listId: '65a650f837'
+        },
+        cors = 'https://cors-anywhere.herokuapp.com/',
+        listData = {
+          name: 'xxx',
+          contact: {
+            company: '123',
+            address1: '123',
+            address2: '123',
+            city: '123',
+            state: '123',
+            zip: '123',
+            country: '123',
+            phone: '123'
+          },
+          permission_reminder: '123',
+          campaign_defaults: {
+            from_name: '234',
+            from_email: '234',
+            subject: '234',
+            language: '234'
+          },
+          email_type_option: true
+        };
+
+      // axios({
+      //   method: 'post',
+      //   headers: {
+      //     Authorization: `Bearer 8baaa1154e47643e7dca84a29f6a4a54-us4`
+      //   },
+      //   url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists`,
+      //   data: JSON.stringify(listData)
+      // })
+      //   .then(function(res) {
+      //     console.log(res);
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   });
+
+      addEmailBtn.addEventListener('click', () => {
+        if (addEmail.value != '') {
+          let memberData = {
+            email_address: addEmail.value,
+            status: 'subscribed'
+          };
+
+          axios({
+            method: 'post',
+            headers: {
+              Authorization: `Bearer ${config.apiKey}`
+            },
+            url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/lists/${config.listId}/members`,
+            data: JSON.stringify(memberData)
+          })
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        }
+      });
+
+      campaignBtn.addEventListener('click', () => {
+        let campaignData = {
+          type: 'regular'
+        };
+
+        axios({
+          method: 'post',
+          headers: {
+            Authorization: `Bearer ${config.apiKey}`
+          },
+          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/campaigns`,
+          data: JSON.stringify(campaignData)
+        })
+          .then(function(res) {
+            console.log(res.data.id);
+            sendCampaigns(res.data.id)
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+
+      function sendCampaigns(campaign_id) {
+        axios({
+          method: 'post',
+          headers: {
+            Authorization: `Bearer ${config.apiKey}`
+          },
+          url: `${cors}https://${config.dc}.api.mailchimp.com/3.0/campaigns/${campaign_id}/actions/send`
+        })
+          .then(function(res) {
+            console.log(res.data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    </script>
+  </body>
+</html>
