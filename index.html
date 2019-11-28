@@ -10,8 +10,8 @@
   <body>
     <main>
       <div class="contentBox">
-        <h3>name: <span id="myListName"></span></h3>
-        <h3>id: <span id="myListId"></span></h3>
+        <h3>LIST NAME : <span id="myListName"></span></h3>
+        <h3>LIST ID : <span id="myListId"></span></h3>
         <div class="contacts">
           <h4>CONTACTS</h4>
           <div class="contactBox"></div>
@@ -19,17 +19,19 @@
       </div>
       <div class="btnBox">
         <div class="item">
-          <input type="text" id="addList" placeholder="Text list name" />
-          <button type="submit" id="addListBtn">create list</button>
+          <input type="text" id="addList" placeholder="Text your list name" />
+          <div class="btn" id="addListBtn">Create List</div>
         </div>
         <div class="item">
-          <input type="email" id="addEmail" placeholder="Text your email" />
-          <button type="submit" id="addEmailBtn">add email</button>
+          <input type="email" id="addEmail" placeholder="Text your member email" />
+          <div class="btn" id="addEmailBtn">Add Member</div>
         </div>
         <div class="item">
-          <button type="submit" id="campaignBtn">send campaign</button>
+          <div class="btn" id="campaignBtn">Send Campaign</div>
         </div>
-        <button id="deleteBtn">delete</button>
+        <div class="item">
+          <div class="btn" id="deleteBtn">Delete List</div>
+        </div>
       </div>
     </main>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

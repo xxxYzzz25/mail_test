@@ -3,6 +3,7 @@
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Cooper Light', Georgia, serif;
 }
 
 main {
@@ -10,12 +11,12 @@ main {
   height: 100vh;
   background: #00334d;
   position: relative;
-  padding: 5% 0;
+  padding: 50px 0;
 }
 
 main .contentBox {
   text-align: center;
-  color: #ccc;
+  color: #d8d8d8;
 }
 
 main .contentBox h3 {
@@ -23,22 +24,26 @@ main .contentBox h3 {
 }
 
 main .contentBox .contacts {
-  border: 2px solid #ddd;
-  width: 80%;
+  border: 3px solid #d8d8d8;
+  width: 95%;
   height: 60vh;
   margin: 0 auto;
-  margin-top: 3%;
-  padding: 1%;
+  margin-top: 30px;
+  padding: 10px;
 }
 
 main .contentBox .contacts h4 {
   font-size: 28px;
+  margin-bottom: 10px;
 }
 
 main .contentBox .contacts .contactBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -47,9 +52,10 @@ main .contentBox .contacts .contactBox {
 }
 
 main .contentBox .contacts .contactBox .item {
-  width: 20%;
-  border: 1px solid #ddd;
-  padding: 3% 1%;
+  width: 18%;
+  border: 2px solid #d8d8d8;
+  padding: 15px 5px;
+  margin: 8px;
 }
 
 main .btnBox {
@@ -65,5 +71,46 @@ main .btnBox {
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  display: none;
+}
+
+main .btnBox .item {
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+main .btnBox .item input {
+  width: 80%;
+  background: none;
+  border: 2px solid #d8d8d8;
+  padding: 5px 0 5px 10px;
+  color: #d8d8d8;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+main .btnBox .item .btn {
+  width: 50%;
+  padding: 8px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 2px solid #00334d;
+  background: #d8d8d8;
+  color: #00334d;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+main .btnBox .item .btn:hover {
+  border: 2px solid #d8d8d8;
+  background: #00334d;
+  color: #d8d8d8;
 }
 /*# sourceMappingURL=style.css.map */
